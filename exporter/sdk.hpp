@@ -1,4 +1,5 @@
-// sdk.hpp — офсеты и геттеры для CS2 (build 14285).
+// sdk.hpp — офсеты и геттеры для CS2. ВНИМАНИЕ: значения из публичных дампов,
+// после каждого патча игры сверять своим дампером/ReClass (см. README_WH.md).
 // Смещения даны как паттерны от модулей; резолв — FindPattern по образцу.
 // Если после патча игра не находит сигнатуру — обнови её здесь, всё остальное не трогай.
 #pragma once
@@ -103,12 +104,17 @@ struct Ptrs {
 
 inline Ptrs g;
 
-// офсеты — стабильные публичные значения build 14285 (после патчей сверять ReClass/дампером)
+// офсеты — публичные дампы; НЕ гарантированно актуальны на текущем билде.
+// Схема верификации после патча: x64dbg/IDA на client.dll -> сверка ниже + сигнатуры.
 namespace off {
   // client.dll globals (сигнатуры резолвятся в ExporterInit)
   constexpr const char* PAT_ENTITYLIST = "48 8B 05 ? ? ? ? 48 8D 4D ? FF 15 ? ? ? ? 33 C0";
   constexpr const char* PAT_LOCALPAWN  = "48 8B 05 ? ? ? ? 48 85 C0 74 ? 8B 90";
-  constexpr const char* PAT_VIEWMATRIX = "48 8D 0C D9 F3 0F 10 84 24"; // mat_world: lea rcx,[rbx+rbx*8] рядом
+  // mat_world: берём из функции, пишущей viewmatrix; рабочий вариант — резолв
+  // через сигнатуру вызова GetViewMatrix / глобал cvar "r_viewMatrix"-подобный.
+  // Текущая сигнатура — эвристика, при промахе WH теряет экранные координаты
+  // (мировые позиции работают). Правь под свой билд.
+  constexpr const char* PAT_VIEWMATRIX = "48 8D 0C D9 F3 0F 10 84 24";
 
   constexpr uintptr_t ENT_SYS_ENTRIES = 0x5C8;   // CGameEntitySystem::entity array base
   constexpr uintptr_t ENT_SYS_MAX     = 0x40000; // ёмкость списка
