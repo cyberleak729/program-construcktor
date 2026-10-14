@@ -1,0 +1,14 @@
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.a
+build/
+dist/
+.vscode/
+.idea/
+*.swp
+*.swo
+*.log
+*.tmp
