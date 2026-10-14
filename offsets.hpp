@@ -12,7 +12,7 @@
 #define OFF_TICK     0x008   // UINT32
 #define OFF_LOCAL    0x00C   // LocalData (0x38)
 #define OFF_COUNTS   0x044   // INT32 total / aliveT / aliveCT
-#define OFF_ENTITIES 0x050   // запись ENTITY_RECORD_SIZE (0x1A8), i = base + 0x04C + i*0x1A8
+#define OFF_ENTITIES 0x050   // запись ENTITY_RECORD_SIZE (0x1A8), i = base + 0x050 + i*0x1A8
 #define OFF_VIEWPROJ (OFF_ENTITIES + MAX_ENTS * ENTITY_RECORD_SIZE) // float[16], row-major: world->clip = v*M, w' = x*M03+y*M13+z*M23+M33
 #define OFF_SIZE     (OFF_VIEWPROJ + 0xC0)  // полный размер снапшота (viewmatrix + reserve)
 
